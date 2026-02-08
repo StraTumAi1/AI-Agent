@@ -1,15 +1,12 @@
-from flask import Flask, request, jsonify
+from flask import Flask
+import os
 
 app = Flask(__name__)
 
-@app.route("/call-event", methods=["POST"])
-def handle_call():
-    data = request.json
-    caller_name = data.get("name")
-    device = data.get("device")
-    issue = data.get("issue")
-    response_text = f"Thanks {caller_name}, your {device} will be ready soon!"
-    return jsonify({"response": response_text})
+@app.route("/")
+def home():
+    return "AI agent running"
 
 if __name__ == "__main__":
-    app.run()
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
